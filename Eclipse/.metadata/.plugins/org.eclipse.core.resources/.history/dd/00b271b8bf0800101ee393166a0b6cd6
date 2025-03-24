@@ -1,0 +1,15 @@
+/*
+ * interrupt.h
+ *
+ *  Created on: Mar 22, 2025
+ *      Author: LightStore
+ */
+
+#ifndef INTERRUPT_H_
+#define INTERRUPT_H_
+
+
+#define Enable_Global_Interrupt() (SREG |= (1<<7))
+#define Disable_Global_Interrupt() (SREG &= ~(1<<7))
+
+#endif /* INTERRUPT_H_ */

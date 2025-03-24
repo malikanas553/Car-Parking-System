@@ -1,0 +1,44 @@
+/*
+ * main.c
+ *
+ *  Created on: Mar 17, 2025
+ *      Author: LightStore
+ */
+#include "lcd.h"
+#include "ultrasonic.h"
+#include "led.h"
+#include "buzzer.h"
+#include <util/delay.h>
+#include "avr/io.h"
+
+
+int main(void)
+{
+	uint16 distance = 0;
+	LCD_init();
+	LEDS_init();
+	Buzzer_init();
+	Ultrasonic_init();
+	Buzzer_on();
+	LCD_displayString("Distance = ");
+
+	SREG |= (1<<7);
+
+	while(1)
+	{
+		distance = Ultrasonic_readDistance();
+		LCD_moveCursor(0,11);
+		LCD_intgerToString(distance);
+		if(distance < 10)
+		{
+			LCD_displayString("  ");
+		}
+		else if(distance < 100)
+		{
+			LCD_displayString(' ');
+		}
+
+		LCD_displayString("cm");
+	}
+}
+
